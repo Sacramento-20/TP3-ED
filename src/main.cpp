@@ -13,12 +13,15 @@ int main(){
   palavra1->AdicionaSignificado("Lugar para repousar");
 
   // palavra2->AdicionaSignificado("Objeto que dirige");
-  // palavra2->AdicionaSignificado("possui 4 rodas e 2 ou 4 portas");
-  // palavra2->AdicionaSignificado("todos os carros foram construidos pelo homem");
+  palavra2->AdicionaSignificado("possui 4 rodas e 2 ou 4 portas");
+  palavra2->AdicionaSignificado("todos os carros foram construidos pelo homem");
 
-  palavra1->ListaSignificados();
-  palavra1->ExcluiSignificado("Lugar para repousar");
-  palavra1->ListaSignificados();
+  cout << palavra1->VerificaSignificado() << endl;
+  cout << palavra2->VerificaSignificado() << endl;
+  cout << palavra3->VerificaSignificado() << endl;
+  // palavra1->ListaSignificados();
+  // palavra1->ExcluiSignificado("Lugar para repousar");
+  // palavra1->ListaSignificados();
   // palavra2->ListaSignificados();
   // palavra3->ListaSignificados();
 

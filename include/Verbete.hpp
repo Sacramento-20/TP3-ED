@@ -10,6 +10,9 @@ class Verbete
     std::string palavra;
     Significado* Head = nullptr;
     
+    Verbete *left;
+    Verbete *right;
+    int altura;
 
     /*Construtor padrão*/
     Verbete();
@@ -20,6 +23,8 @@ class Verbete
     void ListaSignificados();
     /*Adiciona um siginificado a uma palavra*/
     void AdicionaSignificado(std::string _significado);
+    /*Verifica se existe significado na palavra*/
+    bool VerificaSignificado();
     /*Exclui um significado de uma palavra*/
     void ExcluiSignificado(std::string _significado);
     /*Destrutor virtual*/

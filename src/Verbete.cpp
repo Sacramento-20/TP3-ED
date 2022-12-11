@@ -40,6 +40,16 @@ void Verbete::AdicionaSignificado(std::string _significado){
   return;
 }
 
+bool Verbete::VerificaSignificado()
+{
+  Significado* auxiliar = this->Head;
+  
+  if(auxiliar == NULL)
+  {
+    return 0;
+  }
+  return 1;
+}
 
 void Verbete::ListaSignificados()
 {

@@ -3,6 +3,7 @@
 #define SIGNIFICADO_H
 
 #include <iostream>
+#include <cstring>
 
 class Significado
 {
