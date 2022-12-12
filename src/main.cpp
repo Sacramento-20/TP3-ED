@@ -47,14 +47,20 @@ int main( int argc, char *argv[])
 
     /* Significados */
     char auxiliar_significado[frase.length()];
+    /*Esse token serve para percorrer toda a frase realizando os splits*/
     char* token;
-
+    /*Copiei para um variavel do tipo char para poder utilizar a função que separa*/
     strcpy(auxiliar_significado, frase.c_str());
 
+    /*Utilizei a o delimitador como "]" porque tudo depois dele é significado, ou não caso nao tenha*/
     token = strtok(auxiliar_significado, "]");
 
+    /* Essa vai ser a string final*/
     string significado;
 
+    /* Esse loop vai fazer o seguinte, ele vai exibir tudo que tem antes e depois do "]", então esse contador
+    vai ignorar a primeira iteração que é a letra e a palavra, e na segunda,
+    vai pegar a frase de significado e atribuir a string "significado."*/
     int cont = 0;
     while (token != NULL)
     {
@@ -70,13 +76,16 @@ int main( int argc, char *argv[])
         token = strtok(NULL, "]");
       }
     }
-    
+    /*Esse erase ta aqui, porque depois do "]", tem um espaço em branco, entao a maneira mais eficiente de apagar ele
+    foi utilizando essa função que com essa configuração, apaga o primeiro caractere da string que nesse caso é
+    o espaço em branco */
     significado.erase(0,1);
     palavras[contador].AdicionaSignificado(significado);
 
     contador++;
   } 
 
+  /*Criei um vetor de palavras com 10 elementos para testar se estava funcionando*/
   for (int i = 0; i < 10; i++)
   {
      
