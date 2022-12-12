@@ -1,31 +1,88 @@
-#include "Verbete.hpp"
+#include "ArvoreAVL.hpp"
+
+#include <fstream>
+#include <string.h>
+#include <cstring>
+#include <regex>
 
 using namespace std;
 
+int main( int argc, char *argv[])
+{
 
-int main(){
-  Verbete *palavra1 = new Verbete("casa");
-  Verbete *palavra2 = new Verbete("carro");
-  Verbete *palavra3 = new Verbete("comoda"); 
+  Verbete palavras[10];
+
+  /* Arquivo de texto*/
+  ifstream texto;
+  /* Linhas do arquivo*/
+  string frase;
+
+  /*Expressão regular para as palavras*/  
+  string s("\\[([^\\}]+?)\\]");
+  regex reg (s);
+  smatch matches;
+
+  /* vetor de palavras*/
+  string v_palavras[10];
+
+  /*Abre arquivo de texto*/
+  texto.open(argv[1]);
+
+  int contador = 0;
+
+  /* imprimir palavra e significado separadamente*/
+  while ( !texto.eof() )
+  {
+    /*Leio a linha*/
+    getline(texto, frase);
+
+    /*Pega a palavra por expressoes regulares*/
+    cout << std::boolalpha;       
+    regex_search(frase, matches, reg);
+    // cout << matches.str(1) << endl;
+
+    /*Criar uma condição que checa se a palavra ja foi adicionada*/
+    palavras[contador].palavra = matches.str(1);
+
+
+    /* Significados */
+    char auxiliar_significado[frase.length()];
+    char* token;
+
+    strcpy(auxiliar_significado, frase.c_str());
+
+    token = strtok(auxiliar_significado, "]");
+
+    string significado;
+
+    int cont = 0;
+    while (token != NULL)
+    {
+      if(cont == 0)
+      {
+        token = strtok(NULL, "]");
+        cont++;
+        continue;
+      }
+      else
+      {
+        significado = token;
+        token = strtok(NULL, "]");
+      }
+    }
+    
+    significado.erase(0,1);
+    palavras[contador].AdicionaSignificado(significado);
+
+    contador++;
+  } 
+
+  for (int i = 0; i < 10; i++)
+  {
+     
+    palavras[i].ListaSignificados();
+  }
   
-  palavra1->AdicionaSignificado("onde mora");
-  palavra1->AdicionaSignificado("onde a familia se encontra");
-  palavra1->AdicionaSignificado("Lugar para repousar");
 
-  // palavra2->AdicionaSignificado("Objeto que dirige");
-  palavra2->AdicionaSignificado("possui 4 rodas e 2 ou 4 portas");
-  palavra2->AdicionaSignificado("todos os carros foram construidos pelo homem");
-
-  cout << palavra1->VerificaSignificado() << endl;
-  cout << palavra2->VerificaSignificado() << endl;
-  cout << palavra3->VerificaSignificado() << endl;
-  // palavra1->ListaSignificados();
-  // palavra1->ExcluiSignificado("Lugar para repousar");
-  // palavra1->ListaSignificados();
-  // palavra2->ListaSignificados();
-  // palavra3->ListaSignificados();
-
-  delete(palavra1);
-  delete(palavra2);
-  delete(palavra3);
+  return 0;
 }

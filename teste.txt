@@ -1,4 +1,2 @@
-Bola de praia
-Cacho de uva
-Folha Seca
-Quadro em branco
+Logs:
+as palavras "abelha" e "casa" estão fazendo com que varios elementos da lista sejam apagados por algum motivo
