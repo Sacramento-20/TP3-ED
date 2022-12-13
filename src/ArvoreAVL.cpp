@@ -231,24 +231,79 @@ ArvoreAVL* Deletar_Palavra(ArvoreAVL* _dicionario, Verbete _palavra)
 //   return Pesquisa_na_arvore(_dicionario->left, _verbete);
 // }
 
-// bool Esta_na_Arvore(ArvoreAVL* _dicionario, std::string _verbete)
-// {
-//   // Base Cases: root is null or key is present at root
-//   if (_dicionario->verbete.palavra == _verbete)
-//   {
-//     return true;
-//   } 
-//   else if (_dicionario->verbete.palavra < _verbete)
-//   {
-//     Esta_na_Arvore(_dicionario->right, _verbete);
-//   }
-//   else 
-//   {
-//     Esta_na_Arvore(_dicionario->left, _verbete);
-//   }
+
+void Esta_na_Arvore(ArvoreAVL* _dicionario, std::string _verbete)
+{
   
-//   return false;
-// }
+  if(_dicionario != NULL)
+  {
+    if(_dicionario->verbete.palavra == _verbete)
+    {
+      std::cout << _verbete << "Já está na Arvore\n";
+    }
+    Esta_na_Arvore(_dicionario->left, _verbete);
+    Esta_na_Arvore(_dicionario->right, _verbete);
+  }
+  std::cout << _verbete << "não está na Arvore\n";
+}
+
+
+
+
+
+
+
+
+bool iterativeSearch(ArvoreAVL* _dicionario, std::string _verbete)
+{
+    
+  while (_dicionario != NULL) 
+  {
+      
+    if (_verbete > _dicionario->verbete.palavra)
+    {
+      _dicionario = _dicionario->right;
+    }
+    else if (_verbete < _dicionario->verbete.palavra)
+    {
+      _dicionario = _dicionario->left;
+    }
+    else
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool Append_significado(ArvoreAVL* _dicionario, std::string _verbete, std::string _significado)
+{
+  while (_dicionario != NULL) 
+  {
+      
+    if (_verbete > _dicionario->verbete.palavra)
+    {
+      _dicionario = _dicionario->right;
+    }
+    else if (_verbete < _dicionario->verbete.palavra)
+    {
+      _dicionario = _dicionario->left;
+    }
+    else
+    {
+      _dicionario->verbete.AdicionaSignificado(_significado);
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
+
+
+
 
 
 
@@ -330,12 +385,12 @@ void Exibicao_inOrder(ArvoreAVL *_dicionario, std::ofstream& arq)
     if(Maiuscula(_dicionario->verbete.palavra_maiuscula))
     {
       std::cout <<  _dicionario->verbete.palavra_maiuscula << " (" << _dicionario->verbete.tipo << ")" << std::endl;  
-      // _dicionario->verbete.ListaSignificados();
+      _dicionario->verbete.ListaSignificados();
     }
     else
     {
       std::cout <<  _dicionario->verbete.palavra << " (" << _dicionario->verbete.tipo << ")" << std::endl;
-    // _dicionario->verbete.ListaSignificados(arq);
+      _dicionario->verbete.ListaSignificados();
     }
     /*Função que imprime o significado*/
     Exibicao_inOrder(_dicionario->right, arq);

@@ -43,10 +43,6 @@ void parse_args(int argc,char ** argv)
     }
 }
 
-// int Maiuscula(std::string palavra){
-//   return (((palavra[0]) >= 'A') && ((palavra[0]) <= 'Z'));
-// }
-
 int main( int argc, char *argv[])
 {
 
@@ -74,22 +70,33 @@ int main( int argc, char *argv[])
   {
     
     Verbete verbete_atual;
+    
     /*Leio a linha*/
     getline(Arquivo_entrada, frase);
 
+    /*-----------------------------------------------------------------------*/
+    
+    /*                               TIPO                                    */
     /*Tipo da palavra*/
     verbete_atual.tipo = frase[0];
+    
+    /*-----------------------------------------------------------------------*/
 
+    /*-----------------------------------------------------------------------*/
+    
+    /*                              VERBETE                                 */
     /*Pega a palavra por expressoes regulares*/
     cout << std::boolalpha;       
     regex_search(frase, matches, reg);
-    // cout << matches.str(1) << endl;
 
     /*Criar uma condição que checa se a palavra ja foi adicionada*/
     verbete_atual.palavra = matches.str(1);
+    
+    /*-----------------------------------------------------------------------*/
 
-
-    /* Significados */
+    /*-----------------------------------------------------------------------*/
+    
+    /*                             SIGNIFICADOS                              */
     char auxiliar_significado[frase.length()];
     /*Esse token serve para percorrer toda a frase realizando os splits*/
     char* token;
@@ -125,6 +132,11 @@ int main( int argc, char *argv[])
     o espaço em branco */
     significado.erase(0,1);
     
+    /*-----------------------------------------------------------------------*/
+    
+    /*-----------------------------------------------------------------------*/
+    /*                         INSERÇÃO DA ÁRVORE                            */
+
     // ---------------------------------------------------------------
     /*Criar função que retorna 1 ou 0 se o elemento estiver na arvore*/
     // ---------------------------------------------------------------
@@ -133,9 +145,19 @@ int main( int argc, char *argv[])
     {
       verbete_atual.AdicionaSignificado(significado);
     }
+    
+    /*                    NOVO                                    */
+    if(iterativeSearch(Arvore, verbete_atual.palavra))
+    {
+      Append_significado(Arvore, verbete_atual.palavra, significado);
+      continue;
+    }
+    
+    /*-----------------------------------------------------------------------------------*/
+    /* Se a palavra ja estiver no dicionario o codigo vai parar aqui e recomeçar o while */
     contador++;
-   /************************************************************************************************************************/ 
 
+    /*-----------------------------------------------------------------------*/
     /*Adiciona na Arvore*/
     if(!strcmp(Estrutura, arvore))
     {
@@ -163,7 +185,13 @@ int main( int argc, char *argv[])
 
   } 
 
+
+  /*---------------------------------------------------------------------------*/
+  /*                              EXIBIÇÃO                                     */
+  
   Exibicao_inOrder(Arvore, Arquivo_saida);
+
+
 
   Arquivo_entrada.close();
   Arquivo_saida.close();

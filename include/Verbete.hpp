@@ -24,7 +24,7 @@ class Verbete
     Verbete(std::string _palavra);
 
     /*Lista todos os siginificados presentes na palavra*/
-    void ListaSignificados(std::ofstream& arq);
+    void ListaSignificados();
     /*Adiciona um siginificado a uma palavra*/
     void AdicionaSignificado(std::string _significado);
     /*Verifica se existe significado na palavra*/

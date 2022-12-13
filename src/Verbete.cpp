@@ -51,7 +51,7 @@ bool Verbete::VerificaSignificado()
   return 1;
 }
 
-void Verbete::ListaSignificados(std::ofstream& arq)
+void Verbete::ListaSignificados()
 {
   /*Cria um objeto auxiliar que irá receber a cabeça da lista de significados*/
   Significado* auxiliar = this->Head;
