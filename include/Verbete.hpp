@@ -11,6 +11,9 @@ class Verbete
     std::string tipo;
     /*Nome da palavra*/
     std::string palavra;
+    /*Chave*/
+    std::string palavra_maiuscula;
+
     Significado* Head = nullptr;
 
     Verbete* next;
@@ -21,7 +24,7 @@ class Verbete
     Verbete(std::string _palavra);
 
     /*Lista todos os siginificados presentes na palavra*/
-    void ListaSignificados();
+    void ListaSignificados(std::ofstream& arq);
     /*Adiciona um siginificado a uma palavra*/
     void AdicionaSignificado(std::string _significado);
     /*Verifica se existe significado na palavra*/
@@ -30,6 +33,7 @@ class Verbete
     void ExcluiSignificado(std::string _significado);
     /*Destrutor virtual*/
     virtual ~Verbete();
+
 
 };
 

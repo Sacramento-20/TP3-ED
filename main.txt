@@ -1,6 +1,6 @@
 #include "ArvoreAVL.hpp"
 #include "variaveis.hpp"
-
+#include <algorithm>
 
 /*arquivos de entrada e saida*/
 ifstream Arquivo_entrada; 
@@ -42,10 +42,6 @@ void parse_args(int argc,char ** argv)
         exit(1);
     }
 }
-
-// int Maiuscula(std::string palavra){
-//   return (((palavra[0]) >= 'A') && ((palavra[0]) <= 'Z'));
-// }
 
 int main( int argc, char *argv[])
 {
@@ -125,44 +121,32 @@ int main( int argc, char *argv[])
     o espaço em branco */
     significado.erase(0,1);
     
-    // ---------------------------------------------------------------
-    /*Criar função que retorna 1 ou 0 se o elemento estiver na arvore*/
-    // ---------------------------------------------------------------
-    
     if(significado.size() != 0)
     {
       verbete_atual.AdicionaSignificado(significado);
     }
     contador++;
-   /************************************************************************************************************************/ 
+    
 
     /*Adiciona na Arvore*/
     if(!strcmp(Estrutura, arvore))
     {
-
-      if(((verbete_atual.palavra[0]) >= 'A') && ((verbete_atual.palavra[0]) <= 'Z'))
-      {
-
-        verbete_atual.palavra_maiuscula = verbete_atual.palavra;
-        transform(verbete_atual.palavra.begin(), verbete_atual.palavra.end(), verbete_atual.palavra.begin(), ::tolower);
-
-        Arvore = Inserir_Palavra(Arvore, verbete_atual);
-        
-      }
-      else 
-      {
-        verbete_atual.palavra_maiuscula = " ";
-        Arvore = Inserir_Palavra(Arvore, verbete_atual);
-      }
-
+      transform(verbete_atual.palavra.begin(), verbete_atual.palavra.end(), verbete_atual.palavra.begin(), ::tolower);
+      // cout << "Adicionado a arvore\n";
+      Arvore = Inserir_Palavra(Arvore, verbete_atual);
     }
     else if(!strcmp(Estrutura, Hash))
     {
       cout << "Adicionado a tabela hash\n";
     }
 
+    // verbete_atual.ListaSignificados();
+    // cout << endl;
   } 
 
+
+  /*Exibição*/
+  // Arquivo_saida << "Palavras: " << endl;
   Exibicao_inOrder(Arvore, Arquivo_saida);
 
   Arquivo_entrada.close();

@@ -1,5 +1,9 @@
 #include "ArvoreAVL.hpp"
 
+int Maiuscula(std::string palavra){
+  return (((palavra[0]) >= 'A') && ((palavra[0]) <= 'Z'));
+}
+
 int Altura(ArvoreAVL *_dicionario)
 {
   if (_dicionario == NULL)
@@ -213,6 +217,41 @@ ArvoreAVL* Deletar_Palavra(ArvoreAVL* _dicionario, Verbete _palavra)
   return _dicionario; 
 }
 
+// ArvoreAVL* Pesquisa_na_arvore(ArvoreAVL* _dicionario, std::string _verbete)
+// {
+//   if (_dicionario == NULL || _dicionario->verbete.palavra == _verbete)
+//   {
+//     return _dicionario;
+//   } 
+//   if (_dicionario->verbete.palavra < _verbete)
+//   {
+//     return Pesquisa_na_arvore(_dicionario->right, _verbete);
+//   }
+  
+//   return Pesquisa_na_arvore(_dicionario->left, _verbete);
+// }
+
+// bool Esta_na_Arvore(ArvoreAVL* _dicionario, std::string _verbete)
+// {
+//   // Base Cases: root is null or key is present at root
+//   if (_dicionario->verbete.palavra == _verbete)
+//   {
+//     return true;
+//   } 
+//   else if (_dicionario->verbete.palavra < _verbete)
+//   {
+//     Esta_na_Arvore(_dicionario->right, _verbete);
+//   }
+//   else 
+//   {
+//     Esta_na_Arvore(_dicionario->left, _verbete);
+//   }
+  
+//   return false;
+// }
+
+
+
 void Insere_em_Vetor(Lista_palavras **vetor_palavras, std::string _palavra)
 {
   Lista_palavras* nova_palavra = new Lista_palavras();
@@ -284,11 +323,21 @@ void Exibicao_preOrder(ArvoreAVL *_dicionario)
 
 void Exibicao_inOrder(ArvoreAVL *_dicionario, std::ofstream& arq)
 {
+  
   if(_dicionario != NULL)
   {
     Exibicao_inOrder(_dicionario->left, arq);
-    arq << _dicionario->verbete.tipo << " " <<  _dicionario->verbete.palavra << std::endl;
-    // std::cout << _dicionario->verbete.palavra << " ";
+    if(Maiuscula(_dicionario->verbete.palavra_maiuscula))
+    {
+      std::cout <<  _dicionario->verbete.palavra_maiuscula << " (" << _dicionario->verbete.tipo << ")" << std::endl;  
+      // _dicionario->verbete.ListaSignificados();
+    }
+    else
+    {
+      std::cout <<  _dicionario->verbete.palavra << " (" << _dicionario->verbete.tipo << ")" << std::endl;
+    // _dicionario->verbete.ListaSignificados(arq);
+    }
+    /*Função que imprime o significado*/
     Exibicao_inOrder(_dicionario->right, arq);
   }
 }

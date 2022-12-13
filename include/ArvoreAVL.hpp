@@ -23,7 +23,10 @@ struct Lista_palavras
 /*Metodos de inserção e remoção*/
 ArvoreAVL* Nova_palavra(Verbete _palavra);
 ArvoreAVL* Inserir_Palavra(ArvoreAVL *_dicionario, Verbete palavra);
+
 ArvoreAVL* Deletar_Palavra(ArvoreAVL* dicionario, Verbete palavra);
+ArvoreAVL* Pesquisa_na_arvore(ArvoreAVL* dicionario, std::string palavra);
+bool Esta_na_Arvore(ArvoreAVL* dicionario, std::string palavra);
 
 // void Conta_Significados(ArvoreAVL *_dicionario, int *contador);
 void Conta_Significados(ArvoreAVL *_dicionario, Lista_palavras **vetor_palavras);
@@ -36,6 +39,7 @@ ArvoreAVL* Rotacao_Esquerda(ArvoreAVL *_dicionario);
 ArvoreAVL* MenorNo(ArvoreAVL* _no);
 
 /*Métodos auxiliares*/
+int Maiuscula(std::string palavra);
 int Maximo(int a, int b);
 int Altura(ArvoreAVL *_dicionario);
 int Balanco(ArvoreAVL *_dicionario);

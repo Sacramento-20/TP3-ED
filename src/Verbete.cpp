@@ -51,7 +51,7 @@ bool Verbete::VerificaSignificado()
   return 1;
 }
 
-void Verbete::ListaSignificados()
+void Verbete::ListaSignificados(std::ofstream& arq)
 {
   /*Cria um objeto auxiliar que irá receber a cabeça da lista de significados*/
   Significado* auxiliar = this->Head;
@@ -62,16 +62,19 @@ void Verbete::ListaSignificados()
   /*Condição que irá exibir uma mensagem caso não exista nenhum significado para a palavra selecionada*/
   if(auxiliar == NULL)
   {
-    std::cout << "Palavra sem significados" << std::endl;
-    
+    return;
   }
 
   /*While que irá exibir todos os significados presentes na palavra, caso ouver*/
+  int contador = 1;
+  
   while (auxiliar != NULL)
   {
+    // std::string a = std::to_string(contador);
     // std::cout << auxiliar -> frase << " | ";
-    std::cout << auxiliar -> frase << " | ";
+    std::cout << contador << ". " << auxiliar->frase << std::endl;
     auxiliar = auxiliar -> Next;
+    contador++; 
   }
   
 }
