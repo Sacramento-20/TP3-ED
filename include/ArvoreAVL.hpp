@@ -2,6 +2,7 @@
 #define ARVOREAVL_H
 
 #include "Verbete.hpp"
+#include <fstream>
 
 class ArvoreAVL
 {
@@ -43,5 +44,7 @@ int Balanco(ArvoreAVL *_dicionario);
 int N_Significados(ArvoreAVL *_dicionario);
 void Contador_Significados(ArvoreAVL *_dicionario, int *contador);
 void Exibicao_preOrder(ArvoreAVL *_dicionario);
+
+void Exibicao_inOrder(ArvoreAVL *_dicionario, std::ofstream& arq);
 
 #endif

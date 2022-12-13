@@ -57,19 +57,20 @@ void Verbete::ListaSignificados()
   Significado* auxiliar = this->Head;
 
   /*Exibindo a palavra no inicio da ação de exibir seus significados*/
-  std::cout << "Palavra: " << this->palavra << std::endl;
+  // std::cout << "Tipo: " << this->tipo << " Palavra: " << this->palavra << std::endl;
   
   /*Condição que irá exibir uma mensagem caso não exista nenhum significado para a palavra selecionada*/
   if(auxiliar == NULL)
   {
     std::cout << "Palavra sem significados" << std::endl;
-    return;
+    
   }
 
   /*While que irá exibir todos os significados presentes na palavra, caso ouver*/
   while (auxiliar != NULL)
   {
-    std::cout << auxiliar -> frase << std::endl;
+    // std::cout << auxiliar -> frase << " | ";
+    std::cout << auxiliar -> frase << " | ";
     auxiliar = auxiliar -> Next;
   }
   

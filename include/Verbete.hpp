@@ -7,12 +7,13 @@ class Verbete
 {
 
   public:
+    /*Tipo da palavra*/
+    std::string tipo;
+    /*Nome da palavra*/
     std::string palavra;
     Significado* Head = nullptr;
-    
-    Verbete *left;
-    Verbete *right;
-    int altura;
+
+    Verbete* next;
 
     /*Construtor padrão*/
     Verbete();

@@ -11,7 +11,7 @@ SRC_FOLDER = ./src/
 
 # all sources, objs, and header files
 MAIN = Main
-TARGET = run.out
+TARGET = tp3
 SRC = $(wildcard $(SRC_FOLDER)*.cpp)
 OBJ = $(patsubst $(SRC_FOLDER)%.cpp, $(OBJ_FOLDER)%.o, $(SRC))
 

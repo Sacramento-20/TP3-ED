@@ -1,40 +1,80 @@
 #include "ArvoreAVL.hpp"
+#include "variaveis.hpp"
 
-#include <fstream>
-#include <string.h>
-#include <cstring>
-#include <regex>
 
-using namespace std;
+/*arquivos de entrada e saida*/
+ifstream Arquivo_entrada; 
+ofstream Arquivo_saida;
+
+/*Estrutura selecionada*/
+char Estrutura[5];
+char arvore[5] = "arv";
+char Hash[5] = "hash";
+
+void parse_args(int argc,char ** argv)
+// Descricao: le as opcoes da linha de comando e inicializa variaveis
+// Entrada: argc e argv
+// Saida: optescolhida, optx, opty, regmem, lognome
+{
+  // variaveis externas do getopt
+  extern char * optarg;
+  // extern int optind;
+
+  // variavel auxiliar
+  int c;
+  // smtc:
+
+  while ((c = getopt(argc, argv, "i:o:t:")) != EOF)
+      switch(c) {
+        case 'i':
+          Arquivo_entrada.open(optarg);
+          break;
+
+        case 'o':
+          Arquivo_saida.open(optarg);
+          break;
+
+        case 't':
+          strcpy(Estrutura,optarg);
+          break;
+        
+        default:
+        exit(1);
+    }
+}
 
 int main( int argc, char *argv[])
 {
 
-  Verbete palavras[10];
+  // if (!Arquivo_entrada.is_open())
+  // {
+  //   cout << "Arquivo de entrada nao encontrado, erro fatal!\n";
+  //   exit(1);
+  // }
 
-  /* Arquivo de texto*/
-  ifstream texto;
-  /* Linhas do arquivo*/
-  string frase;
+  // if (!Arquivo_saida.is_open())
+  // {
+  //   cout << "Arquivos de saida nao encontrado, erro fatal!\n";
+  //   exit(1);
+  // }
 
-  /*Expressão regular para as palavras*/  
-  string s("\\[([^\\}]+?)\\]");
-  regex reg (s);
-  smatch matches;
-
-  /* vetor de palavras*/
-  string v_palavras[10];
+  ArvoreAVL *Arvore = NULL;
 
   /*Abre arquivo de texto*/
-  texto.open(argv[1]);
-
+  parse_args(argc, argv);
+  
   int contador = 0;
 
   /* imprimir palavra e significado separadamente*/
-  while ( !texto.eof() )
+  while ( !Arquivo_entrada.eof() )
   {
+    
+    Verbete verbete_atual;
     /*Leio a linha*/
-    getline(texto, frase);
+    getline(Arquivo_entrada, frase);
+
+    /*Tipo da palavra*/
+    verbete_atual.tipo = frase[0];
 
     /*Pega a palavra por expressoes regulares*/
     cout << std::boolalpha;       
@@ -42,7 +82,7 @@ int main( int argc, char *argv[])
     // cout << matches.str(1) << endl;
 
     /*Criar uma condição que checa se a palavra ja foi adicionada*/
-    palavras[contador].palavra = matches.str(1);
+    verbete_atual.palavra = matches.str(1);
 
 
     /* Significados */
@@ -61,13 +101,13 @@ int main( int argc, char *argv[])
     /* Esse loop vai fazer o seguinte, ele vai exibir tudo que tem antes e depois do "]", então esse contador
     vai ignorar a primeira iteração que é a letra e a palavra, e na segunda,
     vai pegar a frase de significado e atribuir a string "significado."*/
-    int cont = 0;
+    int contadorToken = 0;
     while (token != NULL)
     {
-      if(cont == 0)
+      if(contadorToken == 0)
       {
         token = strtok(NULL, "]");
-        cont++;
+        contadorToken++;
         continue;
       }
       else
@@ -80,18 +120,34 @@ int main( int argc, char *argv[])
     foi utilizando essa função que com essa configuração, apaga o primeiro caractere da string que nesse caso é
     o espaço em branco */
     significado.erase(0,1);
-    palavras[contador].AdicionaSignificado(significado);
-
+    if(significado.size() != 0)
+    {
+      verbete_atual.AdicionaSignificado(significado);
+    }
     contador++;
+    
+
+    /*Adiciona na Arvore*/
+    if(!strcmp(Estrutura, arvore))
+    {
+      cout << "Adicionado a arvore\n";
+      Arvore = Inserir_Palavra(Arvore, verbete_atual);
+    }
+    else if(!strcmp(Estrutura, Hash))
+    {
+      cout << "Adicionado a tabela hash\n";
+    }
+
+    // verbete_atual.ListaSignificados();
+    // cout << endl;
   } 
 
-  /*Criei um vetor de palavras com 10 elementos para testar se estava funcionando*/
-  for (int i = 0; i < 10; i++)
-  {
-     
-    palavras[i].ListaSignificados();
-  }
-  
 
+  /*Exibição*/
+  // Arquivo_saida << "Palavras: " << endl;
+  Exibicao_inOrder(Arvore, Arquivo_saida);
+
+  Arquivo_entrada.close();
+  Arquivo_saida.close();
   return 0;
 }

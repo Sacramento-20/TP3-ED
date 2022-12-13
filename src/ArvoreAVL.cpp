@@ -63,7 +63,7 @@ ArvoreAVL* Rotacao_Esquerda(ArvoreAVL* _Arvore)
   return y;
 }
 
-
+/*Usa no Main*/
 ArvoreAVL* Inserir_Palavra(ArvoreAVL* _dicionario, Verbete _palavra)
 {
   
@@ -127,6 +127,7 @@ ArvoreAVL* MenorNo(ArvoreAVL* _no)
   return current; 
 }
 
+/*Usa no Main*/
 ArvoreAVL* Deletar_Palavra(ArvoreAVL* _dicionario, Verbete _palavra) 
 { 
       
@@ -260,8 +261,6 @@ void printList(Lista_palavras *no)
   }
 }
 
-
-
 void Remocao_sem_Significado(ArvoreAVL *_dicionario, Lista_palavras *vetor_palavras)
 {
   
@@ -282,6 +281,19 @@ void Exibicao_preOrder(ArvoreAVL *_dicionario)
     Exibicao_preOrder(_dicionario->right);
   }
 }
+
+void Exibicao_inOrder(ArvoreAVL *_dicionario, std::ofstream& arq)
+{
+  if(_dicionario != NULL)
+  {
+    Exibicao_inOrder(_dicionario->left, arq);
+    arq << _dicionario->verbete.tipo << " " <<  _dicionario->verbete.palavra << std::endl;
+    // std::cout << _dicionario->verbete.palavra << " ";
+    Exibicao_inOrder(_dicionario->right, arq);
+  }
+}
+
+
 
 // void Remove(ArvoreAVL *_dicionario)
 // {
