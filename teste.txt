@@ -1,2 +1,10 @@
 Logs:
 as palavras "abelha" e "casa" estão fazendo com que varios elementos da lista sejam apagados por algum motivo
+
+/* função imprime: imprime valores dos elementos */
+void imprime (Lista* l)
+{
+ Lista* p; /* variável auxiliar para percorrer a lista */
+ for (p = l; p != NULL; p = p->prox)
+ printf(“info = %d\n”, p->info);
+}

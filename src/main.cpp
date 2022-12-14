@@ -1,4 +1,5 @@
 #include "ArvoreAVL.hpp"
+#include "Hashing.hpp"
 #include "variaveis.hpp"
 
 
@@ -59,7 +60,9 @@ int main( int argc, char *argv[])
   // }
 
   ArvoreAVL *Arvore = NULL;
+  TabelaHashing Hashing[26];
 
+  inicializarTabela(Hashing);
   /*Abre arquivo de texto*/
   parse_args(argc, argv);
   
@@ -147,9 +150,18 @@ int main( int argc, char *argv[])
     }
     
     /*                    NOVO                                    */
-    if(iterativeSearch(Arvore, verbete_atual.palavra))
+    /*Comentando para implementar hash, depois colocar na estrutura de if abaixo*/
+    
+    // if(iterativeSearch(Arvore, verbete_atual.palavra))
+    // {
+    //   Append_significado(Arvore, verbete_atual.palavra, significado);
+    //   continue;
+    // }
+
+    if(busca(Hashing, verbete_atual.palavra))
     {
-      Append_significado(Arvore, verbete_atual.palavra, significado);
+
+      adiciona_sig(Hashing, verbete_atual.palavra, significado);
       continue;
     }
     
@@ -180,7 +192,7 @@ int main( int argc, char *argv[])
     }
     else if(!strcmp(Estrutura, Hash))
     {
-      cout << "Adicionado a tabela hash\n";
+      inserir(Hashing, verbete_atual);
     }
 
   } 
@@ -189,8 +201,8 @@ int main( int argc, char *argv[])
   /*---------------------------------------------------------------------------*/
   /*                              EXIBIÇÃO                                     */
   
-  Exibicao_inOrder(Arvore, Arquivo_saida);
-
+  // Exibicao_inOrder(Arvore, Arquivo_saida);
+  imprime_tudo(Hashing);
 
 
   Arquivo_entrada.close();

@@ -3,8 +3,9 @@
 
 #include "Verbete.hpp"
 #include <fstream>
+#include <algorithm>
 
-class ListaEnderecada
+class TabelaHashing
 {
   public:
   Verbete* inicio;
@@ -12,26 +13,30 @@ class ListaEnderecada
 
 };
 
-void inicializarLista(ListaEnderecada* _dicionario);
-void inserir_no_dicionario(ListaEnderecada* _dicionario, Verbete _verbete);
-void remover_elemento(ListaEnderecada* _dicionario, std::string _verbete);
+void inicializarLista(TabelaHashing* _dicionario);
+void inserir_no_dicionario(TabelaHashing* _dicionario, Verbete _verbete);
+void remover_elemento(TabelaHashing* _dicionario, std::string _verbete);
 
-std::string buscar_no_dicionario(ListaEnderecada* _dicionario, std::string _verbete);
+int buscar_no_dicionario(TabelaHashing* _dicionario, std::string _verbete);
 
-void inicializarTabela(ListaEnderecada* _dicionario);
+void inicializarTabela(TabelaHashing* _dicionario);
 int funcaoHash(int chave);
 
-void inserir(ListaEnderecada* _dicionario, Verbete _verbete);
-// void remover(ListaEnderecada* _dicionario, Verbete _verbete);
-void remover(ListaEnderecada* _dicionario, std::string _verbete);
+void inserir(TabelaHashing* _dicionario, Verbete _verbete);
+// void remover(TabelaHashing* _dicionario, Verbete _verbete);
+void remover(TabelaHashing* _dicionario, std::string _verbete);
 
-Verbete busca(ListaEnderecada* _dicionario, std::string _verbete);
+int busca(TabelaHashing* _dicionario, std::string _verbete);
 
-void imprimir_dicionario(ListaEnderecada* _dicionario);
+bool busca_sig(TabelaHashing* _dicionario, std::string _verbete, std::string _significado);
+bool adiciona_sig(TabelaHashing* _dicionario, std::string _verbete, std::string _significado);
 
-void imprimir(ListaEnderecada* _dicionario);
-void imprime_palavras(ListaEnderecada* _dicionario);
-void imprime_tudo(ListaEnderecada* _dicionario);
+
+void imprimir_dicionario(TabelaHashing* _dicionario);
+
+void imprimir(TabelaHashing* _dicionario);
+void imprime_palavras(TabelaHashing* _dicionario);
+void imprime_tudo(TabelaHashing* _dicionario);
 
 
 #endif
