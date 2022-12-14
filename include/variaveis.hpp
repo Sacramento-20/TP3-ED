@@ -1,4 +1,7 @@
 /*Expressoes regulares*/
+#ifndef MAISCULA_H
+#define MAISCULA_H
+
 #include <regex>
 #include <getopt.h>
 #include <string.h>
@@ -7,7 +10,6 @@
 
 
 using namespace std;
-
 
 
 /* Linhas do arquivo*/
@@ -22,3 +24,5 @@ smatch matches;
 int contador = 0;
 
 int contadorToken = 0;
+
+#endif

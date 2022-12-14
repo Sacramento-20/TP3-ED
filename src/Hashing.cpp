@@ -87,6 +87,7 @@ void inicializarTabela(TabelaHashing* _dicionario){
   {
     inicializarLista(&_dicionario[i]);
   }
+  
 }
 
 int funcaoHash(int chave){
@@ -131,18 +132,17 @@ int busca(TabelaHashing* _dicionario, std::string _verbete){
   int id = funcaoHash(_verbete[0]);
   return buscar_no_dicionario(&_dicionario[id], _verbete);
 }
-
-// bool busca_sig(TabelaHashing* _dicionario, std::string _verbete, std::string _significado)
-// {
-//   return adiciona_sig(&_dicionario[id], _verbete, _significado);
-// }
+/*---------------------------------------------------------------------------------------------------------------*/
+bool busca_sig(TabelaHashing* _dicionario, std::string _verbete, std::string _significado)
+{
+  int id = funcaoHash(_verbete[0]);
+  return adiciona_sig(&_dicionario[id], _verbete, _significado);
+}
 
 bool adiciona_sig(TabelaHashing* _dicionario, std::string _verbete, std::string _significado)
 {
-  
-  int id = funcaoHash(_verbete[0]);
 
-  Verbete *aux = _dicionario[id].inicio;
+  Verbete *aux = _dicionario -> inicio;
   
   while(aux && aux -> palavra != _verbete)
   {
@@ -185,6 +185,10 @@ void imprimir(TabelaHashing* _dicionario){
   
 }
 
+int MaiusculaHash(std::string palavra){
+  return (((palavra[0]) >= 'A') && ((palavra[0]) <= 'Z'));
+}
+
 void imprime_palavras(TabelaHashing* _dicionario)
 {
 
@@ -192,11 +196,16 @@ void imprime_palavras(TabelaHashing* _dicionario)
   
   while(aux != NULL)
   {
-    std::cout <<  aux -> palavra << " (" << aux->tipo << ")" << std::endl;  
-    
-    aux -> ListaSignificados();
-    std::cout << "impressão terminada" << std::endl;
-    // std::cout << aux -> palavra << std::endl;
+    if(MaiusculaHash(aux->palavra_maiuscula))
+    {
+      std::cout << aux-> palavra_maiuscula << " (" << aux->tipo << ")" << std::endl;
+      aux -> ListaSignificados();
+    }
+    else
+    {
+      std::cout <<  aux -> palavra << " (" << aux->tipo << ")" << std::endl;  
+      aux -> ListaSignificados();
+    }
     aux = aux -> next;
   }
 }

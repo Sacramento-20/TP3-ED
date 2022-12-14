@@ -1,8 +1,6 @@
 #include "ArvoreAVL.hpp"
 
-int Maiuscula(std::string palavra){
-  return (((palavra[0]) >= 'A') && ((palavra[0]) <= 'Z'));
-}
+
 
 int Altura(ArvoreAVL *_dicionario)
 {
@@ -376,13 +374,17 @@ void Exibicao_preOrder(ArvoreAVL *_dicionario)
   }
 }
 
+int MaiusculaArvore(std::string palavra){
+  return (((palavra[0]) >= 'A') && ((palavra[0]) <= 'Z'));
+}
+
 void Exibicao_inOrder(ArvoreAVL *_dicionario, std::ofstream& arq)
 {
   
   if(_dicionario != NULL)
   {
     Exibicao_inOrder(_dicionario->left, arq);
-    if(Maiuscula(_dicionario->verbete.palavra_maiuscula))
+    if(MaiusculaArvore(_dicionario->verbete.palavra_maiuscula))
     {
       std::cout <<  _dicionario->verbete.palavra_maiuscula << " (" << _dicionario->verbete.tipo << ")" << std::endl;  
       _dicionario->verbete.ListaSignificados();

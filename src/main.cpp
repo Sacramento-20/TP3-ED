@@ -1,7 +1,7 @@
 #include "ArvoreAVL.hpp"
 #include "Hashing.hpp"
 #include "variaveis.hpp"
-
+#include <stdlib.h>
 
 /*arquivos de entrada e saida*/
 ifstream Arquivo_entrada; 
@@ -62,7 +62,9 @@ int main( int argc, char *argv[])
   ArvoreAVL *Arvore = NULL;
   TabelaHashing Hashing[26];
 
+  
   inicializarTabela(Hashing);
+  
   /*Abre arquivo de texto*/
   parse_args(argc, argv);
   
@@ -158,10 +160,8 @@ int main( int argc, char *argv[])
     //   continue;
     // }
 
-    if(busca(Hashing, verbete_atual.palavra))
+    if(busca_sig(Hashing, verbete_atual.palavra,significado))
     {
-
-      adiciona_sig(Hashing, verbete_atual.palavra, significado);
       continue;
     }
     
@@ -192,7 +192,17 @@ int main( int argc, char *argv[])
     }
     else if(!strcmp(Estrutura, Hash))
     {
-      inserir(Hashing, verbete_atual);
+      if(((verbete_atual.palavra[0]) >= 'A') && ((verbete_atual.palavra[0]) <= 'Z'))
+      {
+        verbete_atual.palavra_maiuscula = verbete_atual.palavra;
+        transform(verbete_atual.palavra.begin(), verbete_atual.palavra.end(), verbete_atual.palavra.begin(), ::tolower);
+        
+        inserir(Hashing, verbete_atual);
+      }
+      else{
+        verbete_atual.palavra_maiuscula = " ";
+        inserir(Hashing, verbete_atual);
+      }
     }
 
   } 
